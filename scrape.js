@@ -11,7 +11,7 @@ function lineBreakToBR(str) {
 var DOTA2_HERO_URL = 'http://www.dota2.com/heroes/';
 
 var CARD_HERO_FRONT_TPL = _.compose(lineBreakToBR, _.template(
-    'Who is this hero <img src="<%= hero.image %>">?'
+    'Who is this hero? <img src="<%= hero.image %>">'
 )), CARD_HERO_BACK_TPL = _.compose(lineBreakToBR, _.template(
     '<b><%= hero.name %></b>'
 ));
@@ -248,8 +248,6 @@ request.getAsync(DOTA2_HERO_URL).spread(function (res, body) {
             return $(this).attr('href');
         }));
 
-    // hero_urls = hero_urls.slice(0, 2);
-
     P.map(hero_urls, function (url) {
         return HeroDownloader.pushAsync({
             url: url
@@ -277,7 +275,5 @@ request.getAsync(DOTA2_HERO_URL).spread(function (res, body) {
                 ]);
             });
         });
-
-        // console.log(data);
     }).done();
 }).done();
