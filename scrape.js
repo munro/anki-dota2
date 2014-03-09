@@ -13,7 +13,6 @@ var _ = require('lodash'),
     child_process = P.promisifyAll(require('child_process')),
     $ = require('cheerio');
 
-
 function lineBreakToBR(str) {
     return str.replace(/\r?\n\r?/g, '<br>');
 }
@@ -150,7 +149,10 @@ var ImageDownloader = P.promisifyAll(async.queue(function (task, callback) {
             return;
         }
         console.log('Downloading ' + task.url + ' -> ' + task.filename);
-        return promisePiper(request.get(task.url), fs.createWriteStream(task.filename + '.part')).then(function () {
+        return promisePiper(
+            request.get(task.url),
+            fs.createWriteStream(task.filename + '.part')
+        ).then(function () {
             return fs.renameAsync(task.filename + '.part', task.filename);
         });
     }).then(function () {
@@ -184,7 +186,10 @@ var YoutubeDownloader = P.promisifyAll(async.queue(function (task, callback) {
             return;
         }
         console.log('Downloading ' + task.url + ' -> ' + local_file);
-        return child_process.execFileAsync('youtube-dl', ['-f', '135', '-o', local_file, task.url]);
+        return child_process.execFileAsync(
+            'youtube-dl',
+            ['-f', '135', '-o', local_file, task.url]
+        );
     }).then(function () {
         callback();
     }, function (err) {
@@ -284,10 +289,6 @@ var HeroDownloader = P.promisifyAll(async.queue(function (task, callback) {
 /**
  * Kick off downloading all the heroes!
  */
-
-var csv_writer = csv.createCsvFileWriter('anki_dota2_deck.csv');
-// var csv_writer = csv.createCsvStreamWriter(process.stdout);
-
 request.getAsync(DOTA2_HERO_URL).spread(function (res, body) {
     var $body = $(body),
         hero_urls = _.toArray($body.find('a.heroPickerIconLink').map(function () {
@@ -304,8 +305,13 @@ request.getAsync(DOTA2_HERO_URL).spread(function (res, body) {
             });
         });
     }).then(function (heroes) {
+        var csv_writer = csv.createCsvFileWriter('anki_dota2_heroes_deck.csv');
+
         heroes.forEach(function (hero) {
-            csv_writer.writeRecord([CARD_HERO_FRONT_TPL({hero: hero}), CARD_HERO_BACK_TPL({hero: hero})]);
+            csv_writer.writeRecord([
+                CARD_HERO_FRONT_TPL({hero: hero}),
+                CARD_HERO_BACK_TPL({hero: hero})
+            ]);
 
             csv_writer.writeRecord([
                 CARD_HERO_ABILITIES_FRONT_TPL({hero: hero}),
@@ -364,6 +370,8 @@ request.getAsync(DOTA2_HERO_URL).spread(function (res, body) {
 
         return items;
     }).then(function (items) {
+        var csv_writer = csv.createCsvFileWriter('anki_dota2_items_deck.csv');
+
         return P.all(_.map(items, function (item) {
             csv_writer.writeRecord([
                 CARD_ITEM_FRONT_TPL({item: item}),
