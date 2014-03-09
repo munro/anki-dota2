@@ -49,9 +49,42 @@ Here are the types of cards you will find in this deck:
 <td><b>Back</b></td>
 <td width="100%%"><a href="http://www.youtube.com/watch?v=vTbNwc5Tqwc" alt="Video of Fissure from Earthshaker"><img src="http://img.youtube.com/vi/vTbNwc5Tqwc/mqdefault.jpg" /><br>Click to watch video</a><br><p>Slams the ground with a mighty totem, fissuring the earth while stunning and damaging enemy units in a line.  Creates an impassable ridge of stone.</p><br /><table><tbody><tr valign="top" align="left"><td width="50%"><b>Mana Cost:</b> 125/140/155/170<br /><b>Cooldown:</b> 15<br /></td><td><b>ABILITY:</b> Unit Target, Point Target<br /><b>AFFECTS:</b> Enemy Units<br /><b>DAMAGE:</b> Magical<br /><b>DAMAGE:</b> 125 / 175 / 225 / 275<br /><b>FISSURE DURATION:</b> 8<br /><b>STUN DURATION:</b> 1 / 1.25 / 1.5 / 1.75<br /></td></tr></tbody></table></td>
 </tr>
+</tbody></table>
+
+
+### Item icon &rarr; Item name
+
+<table class="noteprev">
+<tbody><tr>
+<td><b>Front</b></td>
+<td width="100%%">What item is this? <img src="example/hyperstone_lg.png" /></tr>
 <tr>
-<td><b>Tags</b></td>
-<td width="100%%"></td>
+<td><b>Back</b></td>
+<td width="100%%"><b>Hyperstone</b></td></tr></tbody></table></td>
+</tr>
+</tbody></table>
+
+### Item name &amp; icon &rarr; How the item works
+
+<table class="noteprev">
+<tbody><tr>
+<td><b>Front</b></td>
+<td width="100%%">What does item <b>Butterfly <img src="example/butterfly_lg.png" /></b> do?</tr>
+<tr>
+<td><b>Back</b></td>
+<td width="100%%">Gold: 6000<br /><br /><i>Doesn't stack with other sources of Evasion.</i><br />+ <span class="attribVal">30</span> <span class="attribValText">Agility</span><br /><br />+ <span class="attribVal">30</span> <span class="attribValText">Damage</span><br /><br />+ <span class="attribVal">35%</span> <span class="attribValText">Evasion</span><br /><br />+ <span class="attribVal">30</span> <span class="attribValText">Attack Speed</span></td></tr></tbody></table></td>
+</tr>
+</tbody></table>
+
+### Item name &amp; icon &rarr; Item composition
+
+<table class="noteprev">
+<tbody><tr>
+<td><b>Front</b></td>
+<td width="100%%">What are the components of <b>Black King Bar <img src="example/black_king_bar_lg.png" /></b>?</tr>
+<tr>
+<td><b>Back</b></td>
+<td width="100%%"><img src="example/ogre_axe_lg.png" /> <b>Ogre Club</b> 3975 gold<br /><br /><img src="example/mithril_hammer_lg.png" /> <b>Mithril Hammer</b> 3975 gold<br /><br /><b>+ 1375 gold recipe</b></td></tr></tbody></table></td>
 </tr>
 </tbody></table>
 

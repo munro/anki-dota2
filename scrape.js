@@ -2,13 +2,37 @@
 
 'use strict';
 
-var _ = require('lodash');
+var _ = require('lodash'),
+    url = require('url'),
+    path = require('path'),
+    async = require('async'),
+    csv = require('ya-csv'),
+    P = require('bluebird'),
+    fs = P.promisifyAll(require('fs')),
+    request = P.promisifyAll(require('request')),
+    child_process = P.promisifyAll(require('child_process')),
+    $ = require('cheerio');
+
 
 function lineBreakToBR(str) {
     return str.replace(/\r?\n\r?/g, '<br>');
 }
 
+/**
+ * Constants
+ */
 var DOTA2_HERO_URL = 'http://www.dota2.com/heroes/';
+
+var SIDE_SHOP_ITEMS = [
+    'Town Portal Scroll', 'Magic Stick', 'Stout Shield', 'Sage\'s Mask',
+    'Ring of Regen', 'Orb of Venom', 'Boots of Speed', 'Cloak',
+    'Ring of Health', 'Morbid Mask', 'Helm of Iron Will', 'Energy Booster',
+    'Slippers of Agility', 'Quelling Blade', 'Band of Elvenskin',
+    'Belt of Strength', 'Robe of the Magi', 'Blades of Attack',
+    'Gloves of Haste', 'Chainmail', 'Quarterstaff', 'Talisman of Evasion',
+    'Ultimate Orb', 'Blink Dagger'
+];
+
 
 var CARD_HERO_FRONT_TPL = _.compose(lineBreakToBR, _.template(
     'Who is this hero? <img src="<%= hero.image %>">'
@@ -39,15 +63,33 @@ var CARD_HERO_ABILITY_FRONT_TPL = _.compose(lineBreakToBR, _.template(
         '</tr></table>'
 ));
 
-var url = require('url'),
-    path = require('path'),
-    async = require('async'),
-    csv = require('ya-csv'),
-    P = require('bluebird'),
-    fs = P.promisifyAll(require('fs')),
-    request = P.promisifyAll(require('request')),
-    child_process = P.promisifyAll(require('child_process')),
-    $ = require('cheerio');
+var CARD_ITEM_FRONT_TPL = _.compose(lineBreakToBR, _.template(
+    'What item is this? <img src="<%= item.image %>">'
+)), CARD_ITEM_BACK_TPL = _.compose(lineBreakToBR, _.template(
+    '<b><%= item.name %></b>'
+));
+
+var CARD_ITEM_USE_FRONT_TPL = _.compose(lineBreakToBR, _.template(
+    'What does item <b><%= item.name %> <img src="<%= item.image %>"></b> do?'
+)), CARD_ITEM_USE_BACK_TPL = _.compose(lineBreakToBR, _.template(
+    'Gold: <%= item.cost %><br>' +
+        '<% if (item.side_shop) { %><b><i>Found at the side shop</b></i><br><% } %>' +
+        '<% if (item.secret_shop) { %><b><i>Found at the secret shop</b></i><br><% } %>' +
+        '<% if (item.cd) { %>Cooldown: <%= item.cd %><br><% } %>' +
+        '<% if (item.mc) { %>Mana Cost: <%= item.mc %><br><% } %>' +
+        '<%= item.desc %><br>' +
+        '<i><%= item.notes %></i><br>' +
+        '<%= item.attrib %>'
+));
+
+var CARD_ITEM_COMPONENTS_FRONT_TPL = _.compose(lineBreakToBR, _.template(
+    'What are the components of <b><%= item.name %> <img src="<%= item.image %>"></b>?'
+)), CARD_ITEM_COMPONENTS_BACK_TPL = _.compose(lineBreakToBR, _.template(
+    '<% _.forEach(item.components, function (component) { %>' +
+        '<img src="<%= component.image %>"> <b><%= component.name %></b> <%= item.cost %> gold<br>\n' +
+        '<% }); %>' +
+        '<% if (item.recipe_cost) { %><b>+ <%= item.recipe_cost %> gold recipe<% } %>'
+));
 
 /**
  * Converts YouTube video URL to a filename.
@@ -242,13 +284,17 @@ var HeroDownloader = P.promisifyAll(async.queue(function (task, callback) {
 /**
  * Kick off downloading all the heroes!
  */
+
+var csv_writer = csv.createCsvFileWriter('anki_dota2_deck.csv');
+// var csv_writer = csv.createCsvStreamWriter(process.stdout);
+
 request.getAsync(DOTA2_HERO_URL).spread(function (res, body) {
     var $body = $(body),
         hero_urls = _.toArray($body.find('a.heroPickerIconLink').map(function () {
             return $(this).attr('href');
         }));
 
-    P.map(hero_urls, function (url) {
+    return P.map(hero_urls, function (url) {
         return HeroDownloader.pushAsync({
             url: url
         }).then(function (hero) {
@@ -258,8 +304,6 @@ request.getAsync(DOTA2_HERO_URL).spread(function (res, body) {
             });
         });
     }).then(function (heroes) {
-        var csv_writer = csv.createCsvFileWriter('anki_dota2_deck.csv');
-
         heroes.forEach(function (hero) {
             csv_writer.writeRecord([CARD_HERO_FRONT_TPL({hero: hero}), CARD_HERO_BACK_TPL({hero: hero})]);
 
@@ -275,5 +319,73 @@ request.getAsync(DOTA2_HERO_URL).spread(function (res, body) {
                 ]);
             });
         });
-    }).done();
+    });
+}).then(function () {
+    return P.all([
+        request.getAsync('http://www.dota2.com/items').spread(function (res, body) {
+            return $(body);
+        }),
+        request.getAsync(
+            'http://www.dota2.com/jsfeed/heropediadata?feeds=itemdata&l=english'
+        ).spread(function (res, body) {
+            return JSON.parse(body).itemdata;
+        })
+    ]).spread(function ($body, item_data) {
+        /**
+         * JSON structure does not identify if item is active, there are a lot of
+         * seasonal items in the JSON data.  Let's pull the relevant list of items
+         * from the web page.
+         */
+        var items = $body.find('.itemIconWithTooltip').map(function (i, elem) {
+            return item_data[$(elem).attr('itemname')];
+        }).toArray();
+
+        items.push(item_data.aegis);
+
+        _.each(items, function (item) {
+            item.name = item.dname;
+            item.image = item.img;
+            item.side_shop = Boolean(_.find(SIDE_SHOP_ITEMS, function (cmp) {
+                return cmp.toLowerCase().trim() === item.name.toLowerCase().trim();
+            }));
+            item.secret_shop = (item.qual === 'secret_shop');
+        });
+
+        _.each(items, function (item) {
+            if (item.components) {
+                item.components = item.components.map(function (item_name) {
+                    return item_data[item_name];
+                });
+                item.recipe_cost = item.cost - item.components.reduce(function (acc, item) {
+                    return acc + item.cost;
+                });
+            }
+        });
+
+        return items;
+    }).then(function (items) {
+        return P.all(_.map(items, function (item) {
+            csv_writer.writeRecord([
+                CARD_ITEM_FRONT_TPL({item: item}),
+                CARD_ITEM_BACK_TPL({item: item})
+            ]);
+
+            csv_writer.writeRecord([
+                CARD_ITEM_USE_FRONT_TPL({item: item}),
+                CARD_ITEM_USE_BACK_TPL({item: item})
+            ]);
+
+            if (item.components) {
+                csv_writer.writeRecord([
+                    CARD_ITEM_COMPONENTS_FRONT_TPL({item: item}),
+                    CARD_ITEM_COMPONENTS_BACK_TPL({item: item})
+                ]);
+            }
+
+            return ImageDownloader.pushAsync({
+                url: 'http://cdn.dota2.com/apps/dota2/images/items/' + item.img,
+                filename: 'media/' + item.img
+            });
+        }));
+    });
 }).done();
