@@ -1,6 +1,6 @@
 # Dota2 Anki Deck
 
-This deck was created to help new and seasons played remember all the heroes, and their abilities.
+This deck was created to help new and seasoned played remember all the heroes, abilities, and items.
 
 ## How to use this deck
 
