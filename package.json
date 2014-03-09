@@ -1,0 +1,20 @@
+{
+  "name": "anki-dota2",
+  "version": "0.0.0",
+  "description": "Anki deck for studying Dota2 heroes & spells",
+  "main": "scrape.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cheerio": "~0.13.1",
+    "request": "~2.33.0",
+    "bluebird": "~1.0.5",
+    "lodash": "~2.4.1",
+    "async": "~0.2.10",
+    "csv": "~0.3.7",
+    "ya-csv": "~0.9.3"
+  }
+}
