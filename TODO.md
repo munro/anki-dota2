@@ -5,6 +5,9 @@ This is a scratch pad for cards I would like to add
 * Deck of audio only, so you can sharpen your audio skills!!!!
 * 98 champions - Picture of champion, with details on the back
 * 392 abilities - Picture of champion and spell, with details on the back
+* Ability Icon -> Ability Name (helpful for ability draft)
+* Hero name -> Hero icon on AP board (helpful for finding heros on all pick)
+* Item name -> Inventory screen (helpful for finding items in shop)
 
 ### Items
 

@@ -10,9 +10,7 @@ Then import this deck from the Ankiweb page:
 
 [https://ankiweb.net/shared/info/1019972773](https://ankiweb.net/shared/info/1019972773)
 
-## Cards Types
-
-Here are the types of cards you will find in this deck:
+## Hero & Ability Cards
 
 ### Hero icon &rarr; Hero name
 
@@ -24,18 +22,6 @@ Here are the types of cards you will find in this deck:
 <tr>
 <td><b>Back</b></td>
 <td width="100%%"><b>Earthshaker</b></td>
-</tr>
-</tbody></table>
-
-### Hero &rarr; Ability names &amp; icons
-
-<table class="noteprev">
-<tbody><tr>
-<td><b>Front</b></td>
-<td width="100%%">What are the abilities of <b>Earthshaker <img src="example/Earthshaker.png" /></b>?</tr>
-<tr>
-<td><b>Back</b></td>
-<td width="100%%"><img src="example/Earthshaker_ability_1.png" /> <b>Fissure</b><br /><br /><img src="example/Earthshaker_ability_2.png" /> <b>Enchant Totem</b><br /><br /><img src="example/Earthshaker_ability_3.png" /> <b>Aftershock</b><br /><br /><img src="example/Earthshaker_ability_4.png" /> <b>Echo Slam</b><br /><br /></td>
 </tr>
 </tbody></table>
 
@@ -51,30 +37,35 @@ Here are the types of cards you will find in this deck:
 </tr>
 </tbody></table>
 
-
-### Item icon &rarr; Item name
+### Hero &rarr; Ability names &amp; icons
 
 <table class="noteprev">
 <tbody><tr>
 <td><b>Front</b></td>
-<td width="100%%">What item is this? <img src="example/hyperstone_lg.png" /></tr>
+<td width="100%%">What are the abilities of <b>Earthshaker <img src="example/Earthshaker.png" /></b>?</tr>
 <tr>
 <td><b>Back</b></td>
-<td width="100%%"><b>Hyperstone</b></td></tr></tbody></table></td>
+<td width="100%%"><img src="example/Earthshaker_ability_1.png" /> <b>Fissure</b><br /><br /><img src="example/Earthshaker_ability_2.png" /> <b>Enchant Totem</b><br /><br /><img src="example/Earthshaker_ability_3.png" /> <b>Aftershock</b><br /><br /><img src="example/Earthshaker_ability_4.png" /> <b>Echo Slam</b><br /><br /></td>
 </tr>
 </tbody></table>
 
-### Item name &amp; icon &rarr; How the item works
+## Item Cards
+
+### Item icon &rarr; Item name &amp; how it works
 
 <table class="noteprev">
 <tbody><tr>
 <td><b>Front</b></td>
-<td width="100%%">What does item <b>Butterfly <img src="example/butterfly_lg.png" /></b> do?</tr>
+<td width="100%%">What is this item? <img src="example/hyperstone_lg.png" /></tr>
 <tr>
 <td><b>Back</b></td>
 <td width="100%%">Gold: 6000<br /><br /><i>Doesn't stack with other sources of Evasion.</i><br />+ <span class="attribVal">30</span> <span class="attribValText">Agility</span><br /><br />+ <span class="attribVal">30</span> <span class="attribValText">Damage</span><br /><br />+ <span class="attribVal">35%</span> <span class="attribValText">Evasion</span><br /><br />+ <span class="attribVal">30</span> <span class="attribValText">Attack Speed</span></td></tr></tbody></table></td>
 </tr>
 </tbody></table>
+
+## Item Composition
+
+This deck is useful for understanding what your opponent is building.  But in reality, you just wanna be pro at the [Shop Keeper Quiz](http://www.dota2.com/quiz).
 
 ### Item name &amp; icon &rarr; Item composition
 
@@ -94,7 +85,7 @@ For a brainstorm of future cards to add goto [TODO.md](TODO.md)
 
 ## Build the Deck
 
-To build the deck you must have [Node.js v0.10.x](http://nodejs.org/) and [youtube-dl](http://rg3.github.io/youtube-dl/).  If you're using Mac &amp; have the [brew.sh](Homebrew package manager), run:
+To build the deck you must have [Node.js v0.10.x](http://nodejs.org/) and [youtube-dl](http://rg3.github.io/youtube-dl/).  If you're using Mac &amp; have the [Homebrew package manager](http://brew.sh/), run:
 
 ```
 brew install nodejs youtube-dl

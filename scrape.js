@@ -63,15 +63,10 @@ var CARD_HERO_ABILITY_FRONT_TPL = _.compose(lineBreakToBR, _.template(
 ));
 
 var CARD_ITEM_FRONT_TPL = _.compose(lineBreakToBR, _.template(
-    'What item is this? <img src="<%= item.image %>">'
+    'What is this item? <img src="<%= item.image %>">'
 )), CARD_ITEM_BACK_TPL = _.compose(lineBreakToBR, _.template(
-    '<b><%= item.name %></b>'
-));
-
-var CARD_ITEM_USE_FRONT_TPL = _.compose(lineBreakToBR, _.template(
-    'What does item <b><%= item.name %> <img src="<%= item.image %>"></b> do?'
-)), CARD_ITEM_USE_BACK_TPL = _.compose(lineBreakToBR, _.template(
-    'Gold: <%= item.cost %><br>' +
+    '<b><%= item.name %></b>' +
+        'Gold: <%= item.cost %><br>' +
         '<% if (item.side_shop) { %><b><i>Found at the side shop</b></i><br><% } %>' +
         '<% if (item.secret_shop) { %><b><i>Found at the secret shop</b></i><br><% } %>' +
         '<% if (item.cd) { %>Cooldown: <%= item.cd %><br><% } %>' +
@@ -370,21 +365,17 @@ request.getAsync(DOTA2_HERO_URL).spread(function (res, body) {
 
         return items;
     }).then(function (items) {
-        var csv_writer = csv.createCsvFileWriter('anki_dota2_items_deck.csv');
+        var csv_items = csv.createCsvFileWriter('anki_dota2_items_deck.csv'),
+            csv_components = csv.createCsvFileWriter('anki_dota2_item_components_deck.csv');
 
         return P.all(_.map(items, function (item) {
-            csv_writer.writeRecord([
+            csv_items.writeRecord([
                 CARD_ITEM_FRONT_TPL({item: item}),
                 CARD_ITEM_BACK_TPL({item: item})
             ]);
 
-            csv_writer.writeRecord([
-                CARD_ITEM_USE_FRONT_TPL({item: item}),
-                CARD_ITEM_USE_BACK_TPL({item: item})
-            ]);
-
             if (item.components) {
-                csv_writer.writeRecord([
+                csv_components.writeRecord([
                     CARD_ITEM_COMPONENTS_FRONT_TPL({item: item}),
                     CARD_ITEM_COMPONENTS_BACK_TPL({item: item})
                 ]);
