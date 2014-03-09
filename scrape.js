@@ -17,7 +17,7 @@ var CARD_HERO_FRONT_TPL = _.compose(lineBreakToBR, _.template(
 ));
 
 var CARD_HERO_ABILITIES_FRONT_TPL = _.compose(lineBreakToBR, _.template(
-    'What are the abilities of <b><%= hero.name %> <img src="<%= hero.image %>"></b>"?'
+    'What are the abilities of <b><%= hero.name %> <img src="<%= hero.image %>"></b>?'
 )), CARD_HERO_ABILITIES_BACK_TPL = _.compose(lineBreakToBR, _.template(
     '<% _.forEach(hero.abilities, function (ability) { %>' +
         '<img src="<%= ability.image %>"> <b><%= ability.name %></b><br>\n' +

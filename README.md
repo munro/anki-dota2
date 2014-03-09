@@ -30,7 +30,7 @@ Here are the types of cards you will find in this deck:
 <table class="noteprev">
 <tbody><tr>
 <td><b>Front</b></td>
-<td width="100%%">What are the abilities of <b>Earthshaker <img src="example/Earthshaker.png" /></b>"?</tr>
+<td width="100%%">What are the abilities of <b>Earthshaker <img src="example/Earthshaker.png" /></b>?</tr>
 <tr>
 <td><b>Back</b></td>
 <td width="100%%"><img src="example/Earthshaker_ability_1.png" /> <b>Fissure</b><br /><br /><img src="example/Earthshaker_ability_2.png" /> <b>Enchant Totem</b><br /><br /><img src="example/Earthshaker_ability_3.png" /> <b>Aftershock</b><br /><br /><img src="example/Earthshaker_ability_4.png" /> <b>Echo Slam</b><br /><br /></td>
@@ -59,7 +59,7 @@ For a brainstorm of future cards to add goto [TODO.md](TODO.md)
 
 ## Build the Deck
 
-To build the deck you must have [http://nodejs.org/](Node.js v0.10.x) and [http://rg3.github.io/youtube-dl/](youtube-dl).
+To build the deck you must have [Node.js v0.10.x](http://nodejs.org/) and [youtube-dl](http://rg3.github.io/youtube-dl/).
 
 Then simply run
 
