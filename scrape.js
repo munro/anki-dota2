@@ -65,7 +65,7 @@ var CARD_HERO_ABILITY_FRONT_TPL = _.compose(lineBreakToBR, _.template(
 var CARD_ITEM_FRONT_TPL = _.compose(lineBreakToBR, _.template(
     'What is this item? <img src="<%= item.image %>">'
 )), CARD_ITEM_BACK_TPL = _.compose(lineBreakToBR, _.template(
-    '<b><%= item.name %></b>' +
+    '<b><%= item.name %></b><br>' +
         'Gold: <%= item.cost %><br>' +
         '<% if (item.side_shop) { %><b><i>Found at the side shop</b></i><br><% } %>' +
         '<% if (item.secret_shop) { %><b><i>Found at the secret shop</b></i><br><% } %>' +

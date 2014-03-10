@@ -9,6 +9,8 @@ This is a scratch pad for cards I would like to add
 * Hero name -> Hero icon on AP board (helpful for finding heros on all pick)
 * Item name -> Inventory screen (helpful for finding items in shop)
 
+* range!!!
+
 ### Items
 
 * 128 items - Picture of item, with details on the back
