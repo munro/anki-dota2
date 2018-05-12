@@ -80,10 +80,10 @@ var CARD_ITEM_FRONT_TPL = _.compose(lineBreakToBR, _.template(
 var CARD_ITEM_COMPONENTS_FRONT_TPL = _.compose(lineBreakToBR, _.template(
     'What are the components of <b><%= item.name %> <img src="<%= item.image %>"></b>?'
 )), CARD_ITEM_COMPONENTS_BACK_TPL = _.compose(lineBreakToBR, _.template(
-    '<% _.forEach(item.components, function (component) { %>' +
-        '<img src="<%= component.image %>"> <b><%= component.name %></b> <%= item.cost %> gold<br>\n' +
+    'Price: <%= item.cost %> gold<br>\n' + '<% _.forEach(item.components, function (component) { %>' +
+        '<img src="<%= component.image %>"> <b><%= component.name %></b>: <%= component.cost %> gold<br>\n' +
         '<% }); %>' +
-        '<% if (item.recipe_cost) { %><b>+ <%= item.recipe_cost %> gold recipe<% } %>'
+        '<% if (item.recipe_cost) { %>+ <b>Recipe</b>: <%= item.recipe_cost %> gold<% } %>'
 ));
 
 /**
@@ -342,6 +342,13 @@ var HeroDownloader = P.promisifyAll(async.queue(function (task, callback) {
  * Kick off downloading all the heroes!
  */
 request.getAsync(DOTA2_HERO_URL).spread(function (res, body) {
+    // debugging
+    /*
+    var $body = $(body),
+        hero_urls = slice(_.toArray($body.find('a.heroPickerIconLink').map(function () {
+            return $(this).attr('href');
+        })), 0, 3);
+    */
     var $body = $(body),
         hero_urls = _.toArray($body.find('a.heroPickerIconLink').map(function () {
             return $(this).attr('href');
@@ -399,6 +406,13 @@ request.getAsync(DOTA2_HERO_URL).spread(function (res, body) {
         }).toArray();
 
         items.push(item_data.aegis);
+        // debugging
+        /*
+        items = slice(items, 0, 5);
+        for (var i = 0; i < items.length; i += 1) {
+            console.log(items[i]);
+        }
+        */
 
         _.each(items, function (item) {
             item.name = item.dname;
@@ -414,12 +428,25 @@ request.getAsync(DOTA2_HERO_URL).spread(function (res, body) {
 
         _.each(items, function (item) {
             if (item.components) {
+                //console.log("-- item: " + item.dname + " = " + item.components);
                 item.components = item.components.map(function (item_name) {
                     return item_data[item_name];
                 });
+                // debugging
+                /*
+                console.log("--------- Item: " + item.dname + " (cost: " + item.cost + ")");
+                for (var i = 0; i < item.components.length; i += 1) {
+                    console.log(item.components[i].name + " (cost: " + item.components[i].cost + ")");
+                }
+                */
                 item.recipe_cost = item.cost - item.components.reduce(function (acc, item) {
                     return acc + item.cost;
-                });
+                }, 0);
+                /*
+                if (item.recipe_cost != 0) {
+                    console.log("Recipe (cost: " + item.recipe_cost + ")");
+                }
+                */
             }
         });
 
