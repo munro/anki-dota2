@@ -98,7 +98,9 @@ brew install nodejs youtube-dl
 Alternatively, on Windows you can download installers from links above and copy `youtube-dl.exe`
 to the `anki-dota2` directory.
 
-Then go the cloned repo folder `anki-dota2` and run:
+Then go the cloned repo folder `anki-dota2` and create a `media` directory.
+
+Then run:
 
 ```javascript
 npm install
