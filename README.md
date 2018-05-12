@@ -8,7 +8,7 @@ First install [Anki](http://ankisrs.net/), a [spaced repetition](http://en.wikip
 
 Then import this deck from the Ankiweb page:
 
-[https://ankiweb.net/shared/info/1019972773](https://ankiweb.net/shared/info/1019972773)
+[https://ankiweb.net/shared/info/1019972773](https://ankiweb.net/shared/info/1019972773) (does not exist anymore)
 
 ## Hero & Ability Cards
 
@@ -85,15 +85,24 @@ For a brainstorm of future cards to add goto [TODO.md](TODO.md)
 
 ## Build the Deck
 
-To build the deck you must have [Node.js v0.10.x](http://nodejs.org/) and [youtube-dl](http://rg3.github.io/youtube-dl/).  If you're using Mac &amp; have the [Homebrew package manager](http://brew.sh/), run:
+To build the deck you must have [Node.js](http://nodejs.org/) and [youtube-dl](http://rg3.github.io/youtube-dl/).
+
+First download or clone the repo in e.g. `anki-dota2`.
+
+If you're using Mac &amp; have the [Homebrew package manager](http://brew.sh/), run:
 
 ```
 brew install nodejs youtube-dl
 ```
 
-Then clone the repo and run:
+Alternatively, on Windows you can download installers from links above and copy `youtube-dl.exe`
+to the `anki-dota2` directory.
+
+Then go the cloned repo folder `anki-dota2` and run:
 
 ```javascript
 npm install
 node scrape.js
 ```
+
+Import `anki_dota2_heroes_deck.csv`, `anki_dota2_item_components_deck.csv` and `anki_dota2_items_deck.csv` in [Anki](http://ankisrs.net/). Copy the content of the `anki-dota2/media` directory in the Anki `media` directory (e.g. `C:\Users\<user>\AppData\Roaming\Anki2\User 1\collection.media`).
