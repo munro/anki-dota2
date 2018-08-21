@@ -34,23 +34,23 @@ var SIDE_SHOP_ITEMS = [
 ];
 
 
-var CARD_HERO_FRONT_TPL = _.compose(lineBreakToBR, _.template(
+var CARD_HERO_FRONT_TPL = _.flowRight(lineBreakToBR, _.template(
     'Who is this hero? <img src="<%= hero.image %>">'
-)), CARD_HERO_BACK_TPL = _.compose(lineBreakToBR, _.template(
+)), CARD_HERO_BACK_TPL = _.flowRight(lineBreakToBR, _.template(
     '<b><%= hero.name %></b>'
 ));
 
-var CARD_HERO_ABILITIES_FRONT_TPL = _.compose(lineBreakToBR, _.template(
+var CARD_HERO_ABILITIES_FRONT_TPL = _.flowRight(lineBreakToBR, _.template(
     'What are the abilities of <b><%= hero.name %> <img src="<%= hero.image %>"></b>?'
-)), CARD_HERO_ABILITIES_BACK_TPL = _.compose(lineBreakToBR, _.template(
+)), CARD_HERO_ABILITIES_BACK_TPL = _.flowRight(lineBreakToBR, _.template(
     '<% _.forEach(hero.abilities, function (ability) { %>' +
         '<img src="<%= ability.image %>"> <b><%= ability.name %></b><br>\n' +
         '<% }); %>'
 ));
 
-var CARD_HERO_ABILITY_FRONT_TPL = _.compose(lineBreakToBR, _.template(
+var CARD_HERO_ABILITY_FRONT_TPL = _.flowRight(lineBreakToBR, _.template(
     '[Video] How does the ability <img src="<%= ability.image %>"> <b><%= ability.name %></b> from <b><%= hero.name %> <img src="<%= hero.image %>"></b> work? '
-)), CARD_HERO_ABILITY_BACK_TPL = _.compose(lineBreakToBR, _.template(
+)), CARD_HERO_ABILITY_BACK_TPL = _.flowRight(lineBreakToBR, _.template(
     '[sound:<%= ability.video %>]' +
         '<p><%= ability.description %></p><br>' +
         '<table><tr valign="top" align="left">' +
@@ -63,9 +63,9 @@ var CARD_HERO_ABILITY_FRONT_TPL = _.compose(lineBreakToBR, _.template(
         '</tr></table>'
 ));
 
-var CARD_ITEM_FRONT_TPL = _.compose(lineBreakToBR, _.template(
+var CARD_ITEM_FRONT_TPL = _.flowRight(lineBreakToBR, _.template(
     'What is this item? <img src="<%= item.image %>">'
-)), CARD_ITEM_BACK_TPL = _.compose(lineBreakToBR, _.template(
+)), CARD_ITEM_BACK_TPL = _.flowRight(lineBreakToBR, _.template(
     '<b><%= item.name %></b><br>' +
         'Gold: <%= item.cost %><br>' +
         '<% if (item.side_shop) { %><b><i>Found at the side shop</b></i><br><% } %>' +
@@ -77,9 +77,9 @@ var CARD_ITEM_FRONT_TPL = _.compose(lineBreakToBR, _.template(
         '<%= item.attrib %>'
 ));
 
-var CARD_ITEM_COMPONENTS_FRONT_TPL = _.compose(lineBreakToBR, _.template(
+var CARD_ITEM_COMPONENTS_FRONT_TPL = _.flowRight(lineBreakToBR, _.template(
     'What are the components of <b><%= item.name %> <img src="<%= item.image %>"></b>?'
-)), CARD_ITEM_COMPONENTS_BACK_TPL = _.compose(lineBreakToBR, _.template(
+)), CARD_ITEM_COMPONENTS_BACK_TPL = _.flowRight(lineBreakToBR, _.template(
     'Price: <%= item.cost %> gold<br>\n' + '<% _.forEach(item.components, function (component) { %>' +
         '<img src="<%= component.image %>"> <b><%= component.name %></b>: <%= component.cost %> gold<br>\n' +
         '<% }); %>' +
@@ -155,8 +155,8 @@ var ImageDownloader = P.promisifyAll(async.queue(function (task, callback) {
         callback();
     }, function (err) {
         task.attempts = (task.attempts || 0) + 1;
-        console.error('[Error] Could not download image ' + task.filename + ', retrying attempt ' + task.attempts);
-        console.error(err.stack);
+        console.warn('[WARNING] Could not download image ' + task.filename + '.  Most likely from hitting the CDN with too many requests, retrying attempt ' + task.attempts);
+        console.warn(err.stack);
         return callback(false, ImageDownloader.pushAsync(task));
     });
 }, 10)); // concurrency
