@@ -8,7 +8,7 @@ First install [Anki](http://ankisrs.net/), a [spaced repetition](http://en.wikip
 
 Then import this deck from the Ankiweb page:
 
-[https://ankiweb.net/shared/info/1019972773](https://ankiweb.net/shared/info/1019972773) (does not exist anymore)
+[https://ankiweb.net/shared/info/494272399](https://ankiweb.net/shared/info/494272399)
 
 ## Hero & Ability Cards
 
