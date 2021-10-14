@@ -6,9 +6,7 @@ This deck was created to help new and seasoned played remember all the heroes, a
 
 First install [Anki](http://ankisrs.net/), a [spaced repetition](http://en.wikipedia.org/wiki/Spaced_repetition) flash card software.
 
-Then import this deck from the Ankiweb page:
-
-[https://ankiweb.net/shared/info/494272399](https://ankiweb.net/shared/info/494272399)
+Then download [Dota 2.apkg](https://github.com/munro/anki-dota2/raw/main/Dota%202.apkg), and import it into Anki!
 
 ## Hero & Ability Cards
 
@@ -33,7 +31,7 @@ Then import this deck from the Ankiweb page:
 <td width="100%%">[Video] How does the ability <img src="example/Earthshaker_ability_1.png" /> <b>Fissure</b> from <b>Earthshaker <img src="example/Earthshaker.png" /></b> work?</tr>
 <tr>
 <td><b>Back</b></td>
-<td width="100%%"><a href="http://www.youtube.com/watch?v=vTbNwc5Tqwc" alt="Video of Fissure from Earthshaker"><img src="http://img.youtube.com/vi/vTbNwc5Tqwc/mqdefault.jpg" /><br>Click to watch video</a><br><p>Slams the ground with a mighty totem, fissuring the earth while stunning and damaging enemy units in a line.  Creates an impassable ridge of stone.</p><br /><table><tbody><tr valign="top" align="left"><td width="50%"><b>Mana Cost:</b> 125/140/155/170<br /><b>Cooldown:</b> 15<br /></td><td><b>ABILITY:</b> Unit Target, Point Target<br /><b>AFFECTS:</b> Enemy Units<br /><b>DAMAGE:</b> Magical<br /><b>DAMAGE:</b> 125 / 175 / 225 / 275<br /><b>FISSURE DURATION:</b> 8<br /><b>STUN DURATION:</b> 1 / 1.25 / 1.5 / 1.75<br /></td></tr></tbody></table></td>
+<td width="100%%"><a href="https://www.youtube.com/watch?v=BAUGZhuCfpQ" alt="Video of Fissure from Earthshaker"><img src="http://img.youtube.com/vi/BAUGZhuCfpQ/mqdefault.jpg" /><br>Click to watch video</a><br><p>Slams the ground with a mighty totem, fissuring the earth while stunning and damaging enemy units in a line.  Creates an impassable ridge of stone.</p><br /><table><tbody><tr valign="top" align="left"><td width="50%"><b>Mana Cost:</b> 125/140/155/170<br /><b>Cooldown:</b> 15<br /></td><td><b>ABILITY:</b> Unit Target, Point Target<br /><b>AFFECTS:</b> Enemy Units<br /><b>DAMAGE:</b> Magical<br /><b>DAMAGE:</b> 125 / 175 / 225 / 275<br /><b>FISSURE DURATION:</b> 8<br /><b>STUN DURATION:</b> 1 / 1.25 / 1.5 / 1.75<br /></td></tr></tbody></table></td>
 </tr>
 </tbody></table>
 
@@ -65,7 +63,7 @@ Then import this deck from the Ankiweb page:
 
 ## Item Composition
 
-This deck is useful for understanding what your opponent is building.  But in reality, you just wanna be pro at the [Shop Keeper Quiz](http://www.dota2.com/quiz).
+This deck is useful for understanding what your opponent is building. But in reality, you just wanna be pro at the [Shop Keeper Quiz](http://www.dota2.com/quiz).
 
 ### Item name &amp; icon &rarr; Item composition
 
